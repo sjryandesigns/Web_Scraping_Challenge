@@ -13,7 +13,7 @@
 
 </head>
 
-<body class="text-red" style="background-color:black;">
+<body class="text-black" style="background-color:white;">
     <div class="container">
 
         <!-- Jumbotron -->
@@ -26,25 +26,23 @@
         <!-- News Section -->
         <div class="container">
             <h3>Latest Mars News</h3>
-            <h6 style="color: red">{{ mars_info.mars_newstitle }}</h6>
-            <p>{{ mars_info.mars_paragraph }}</p>
+            <h6 style="color: red">{{ mars.mars_newstitle }}</h6>
+            <p>{{ mars.mars_paragraph }}</p>
         </div>
 
         <div class="container">
             <div class="row">
                 <!-- Left Image-->
-                <div class="col-lg-8 col-md-8 col-sm-12">
+                <div>
                     <h3>Featured Mars Image</h3>
-                    <img src="{{ mars_info.feature_image }}" style="max-width:100%; max-height: auto;" alt="Mars Featured Image">
+                    <img src="{{ mars.feature_image }}" style="max-width:100%; max-height: auto;" alt="Mars Featured Image">
                 </div>
-            
-                    <!-- Table -->
-                    <br>
-                    <h3>Mars Facts</h3>
-                    <div style="max-width: 450px; max-height: 150px; font-size: 15px; margin-bottom: 65px;">
-                        {{ mars_info.mars_table|safe}}
-                    </div>
-                </div> <!-- col4 -->
+                <!-- Table -->
+                <h3>Mars Facts</h3>
+                <br>
+                <div style="max-width: 450px; max-height: 150px; font-size: 15px; margin-bottom: 65px;">
+                    {{ mars.mars_table|safe}}
+                </div>
             </div><!-- Row -->
         </div><!-- Container -->
 
@@ -54,7 +52,7 @@
             <hr>
             <div class="col-md-12">
                 <div class="row">
-                    {% for item in mars_info.hemisphere_imgs %}
+                    {% for item in mars.hemisphere_imgs %}
                     <div class="col-md-6">
                         <div class="card text-white bg-dark" style="margin: 30px;">
                             <img class="card-img-top" src="{{ item.img_url }}" />

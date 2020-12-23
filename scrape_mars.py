@@ -3,7 +3,7 @@
 from splinter import Browser
 from bs4 import BeautifulSoup as bs
 import time
-import pandas
+import pandas as pd
 
 # Initialize browser/chromedriver
 
@@ -56,6 +56,7 @@ def scrape_info():
 
     mars_facts_url = 'https://space-facts.com/mars/'
     browser.visit(mars_facts_url)
+    time.sleep(1)
     
     mars_facts_html = browser.html
     mars_facts_soup = bs(mars_facts_html, 'html.parser')
