@@ -1,57 +1,36 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#################################################
-# MongoDB and Flask Application
-#################################################
-
-# Dependencies and Setup
-from flask import Flask, render_template
+# Import dependencies
+from flask import Flask, render_template, redirect
 from flask_pymongo import PyMongo
 import scrape_mars
 
-#################################################
-# Flask Setup
-#################################################
+# Create instance of Flask
 app = Flask(__name__)
 
-#################################################
-# PyMongo Connection Setup
-#################################################
-app.config["MONGO_URI"] = "mongodb://localhost:27017/mars_app"
-mongo = PyMongo(app)
+#Use Mongo to establish Mongo connection
+mongo = PyMongo(app, uri="mongodb://localhost:27017/mars_app")
 
-#################################################
-# Flask Routes
-#################################################
-# Root Route to Query MongoDB & Pass Mars Data Into HTML Template: index.html to Display Data
+# Route to render index.html template using data from Mongo
 @app.route("/")
-def index():
-    mars = mongo.db.mars.find_one()
-    return render_template("index.html", mars=mars)
+def home():
 
-# Scrape Route to Import `scrape_mars.py` Script & Call `scrape` Function
+    #Find one record of data from mongo database
+    mars_info = mongo.db.collection.find_one()
+
+    # Return template and data
+    return render_template("index.html", mars = mars_info)
+
+#Route that will trigger scrape function
 @app.route("/scrape")
-def scrapper():
-    mars = mongo.db.mars
-    mars_data = scrape_mars.scrape_all()
-    mars.update({}, mars_data, upsert=True)
-    return "Scraping Successful"
+def scrape():
+    
+    #Run the scrape function
+    mars_data = scrape_mars.scrape_info()
 
-# Define Main Behavior
+    #Update the mongo database using update and upsert=True
+    mongo.db.marscollection.update({}, mars_data, upsert=True)
+
+    #Redirect back to home page
+    return redirect("/")
+
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
