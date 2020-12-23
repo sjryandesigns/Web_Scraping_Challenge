@@ -56,9 +56,7 @@ def scrape_info():
 
     mars_facts_url = 'https://space-facts.com/mars/'
     browser.visit(mars_facts_url)
-
-     time.sleep(1)
-
+    
     mars_facts_html = browser.html
     mars_facts_soup = bs(mars_facts_html, 'html.parser')
 
@@ -74,7 +72,7 @@ def scrape_info():
     url = "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
     browser.visit(url)
 
-     time.sleep(1)
+    time.sleep(1)
 
     hemisphere_image_urls = []
 
